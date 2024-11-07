@@ -1,5 +1,7 @@
 import java.util.*;
 
+
+
 public class MgmtSys {
 
     static Scanner sc = new Scanner(System.in);
@@ -20,8 +22,7 @@ public class MgmtSys {
 
     void display(Contact c) {   System.out.printf("\nName:%s\nPhone Number 1:%s\nPhone Number 2:%s\n\n",c.name,c.pno1,c.pno2);    }
 
-    void searchName(String name)
-    {
+    void searchName(String name) {  //LookUp Time O(1)
         if(!isPresent(name))//If not Found
             System.out.println("Contact not found");
         else {
@@ -30,22 +31,24 @@ public class MgmtSys {
         }
     }
 
-    void addCont(String name)
-    {
+
+    void addCont(String name) {
         Long pno1,pno2;
         if(isPresent(name))  System.out.println("Contact already exists\tPress Enter to Continue");
         else {
+
             try{
                 System.out.println("Enter 2 Phone Numbers without Country Code: ");
                  pno1 = sc.nextLong();
-                 //sc.nextLine();
                  pno2 = sc.nextLong();
-                 if(isValid(pno1) || isValid(pno2))
+                 if(isValid(pno1) || isValid(pno2) )
                      throw new Exception("Invalid");
-            }   catch(Exception e ){
+            }
+            catch(Exception e ){
                 System.out.println("Invalid Phone Number");
                 return;
             }
+
             contact = new Contact(name, pno1,pno2);
             contactList.add(contact);
             index.put(name, contactList.size()-1);
@@ -54,17 +57,54 @@ public class MgmtSys {
             display(contact);
         }
     }
+    boolean isValid(Long pno) {
+        int n = 0;
+        while(pno>0)
+        {
+            n++;
+            pno/=10;
+        }
+        return n!=10;
+     }
 
-        boolean isValid(Long pno) {     return (    (pno/(Math.pow(10,11)) ==0) && (pno>=Math.pow(10,10))   );  }
+    void dispAll() {
+         if(contactList.isEmpty())
+             System.out.println("Contact list is empty");
+         else for(Contact i: contactList)
+            display(i);
+    }
+
+    void deleteCont(String name) {
+         if(!isPresent(name))
+         {
+             System.out.println("Contact not found");
+             return;
+         }
+         pos = index.get(name);
+        updateIndex();
+
+         System.out.println("Contact Deleted: ");
+         display(contactList.get(pos));
+
+         contactList.remove(pos);
+    }
+    void updateIndex() {
+         for(String key: index.keySet())
+         {
+             int val = index.get(key);
+             if(val>pos) // The index of this number is after the deleted index, therefore needs to be updated
+                 index.put(key ,val-1);
+         }
+    }
 
     public static void main(String[] args) {
-        int ch=-1;
+        int ch;
         MgmtSys ms = new MgmtSys();
         String name;
 
-        while(ch!=0) {
+        while(true) {
             try {
-                System.out.println("Enter 1 to Search a contact\n 2 to Add a Contact\n 3 to Delete a Contact\n0 to terminate");
+                System.out.println("Enter 0 to terminate\n1 to Search a contact\n 2 to Add a Contact\n 3 to View Contact List\n 4 to Delete a Contact");
                 ch = Integer.parseInt(sc.nextLine());
 
                 if(ch==0) break;
@@ -83,18 +123,19 @@ public class MgmtSys {
                         break;
 
                     case 3:
+                        ms.dispAll();
                         break;
 
+                    case 4:
+                        ms.deleteCont(name);
+                        break;
                     default:
                         System.out.println("Invalid Choice");
                 }
 
-            } catch (Exception e) {
-                System.out.println("Invalid Choice");
-            }
-
+            } catch (Exception e) {  System.out.println("Invalid Choice");   }
         }
         System.out.println("|---------------Program Terminated---------------|");
-
     }
 }
+
