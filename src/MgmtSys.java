@@ -108,9 +108,12 @@ public class MgmtSys {
                 ch = Integer.parseInt(sc.nextLine());
 
                 if(ch==0) break;
-
-                System.out.println("Enter the Name ");
-                name = sc.nextLine();
+                if(ch==3){
+                    ms.dispAll();
+                continue;
+                }
+            System.out.println("Enter the Name ");
+            name = sc.nextLine();
 
                 switch (ch) {
                     case 1:
@@ -120,10 +123,6 @@ public class MgmtSys {
                     case 2:
                         ms.addCont(name);
                         sc.nextLine();
-                        break;
-
-                    case 3:
-                        ms.dispAll();
                         break;
 
                     case 4:
