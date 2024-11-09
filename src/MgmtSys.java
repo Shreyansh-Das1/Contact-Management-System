@@ -82,7 +82,7 @@ public class MgmtSys {
          }
          pos = index.get(name);
          index.remove(name);
-        updateIndex();
+         updateIndex();
 
          System.out.println("Contact Deleted: ");
          display(contactList.get(pos));
@@ -132,6 +132,7 @@ public class MgmtSys {
                     default:
                         System.out.println("Invalid Choice");
                 }
+
         }
         System.out.println("|---------------Program Terminated---------------|");
     }
