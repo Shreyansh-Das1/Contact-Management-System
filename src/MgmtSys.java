@@ -41,7 +41,7 @@ public class MgmtSys {
                 System.out.println("Enter 2 Phone Numbers without Country Code: ");
                  pno1 = sc.nextLong();
                  pno2 = sc.nextLong();
-                 if(isValid(pno1) || isValid(pno2) )
+                 if(isNotValid(pno1) || isNotValid(pno2) )
                      throw new Exception("Invalid");
             }
             catch(Exception e ){
@@ -57,7 +57,7 @@ public class MgmtSys {
             display(contact);
         }
     }
-    boolean isValid(Long pno) {
+    boolean isNotValid(Long pno) {
         int n = 0;
         while(pno>0)
         {
@@ -81,6 +81,7 @@ public class MgmtSys {
              return;
          }
          pos = index.get(name);
+         index.remove(name);
         updateIndex();
 
          System.out.println("Contact Deleted: ");
@@ -103,7 +104,6 @@ public class MgmtSys {
         String name;
 
         while(true) {
-            try {
                 System.out.println("Enter 0 to terminate\n1 to Search a contact\n 2 to Add a Contact\n 3 to View Contact List\n 4 to Delete a Contact");
                 ch = Integer.parseInt(sc.nextLine());
 
@@ -132,8 +132,6 @@ public class MgmtSys {
                     default:
                         System.out.println("Invalid Choice");
                 }
-
-            } catch (Exception e) {  System.out.println("Invalid Choice");   }
         }
         System.out.println("|---------------Program Terminated---------------|");
     }
