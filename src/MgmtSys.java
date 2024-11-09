@@ -103,7 +103,7 @@ public class MgmtSys {
         String name;
 
         while(true) {
-            try {
+            
                 System.out.println("Enter 0 to terminate\n1 to Search a contact\n 2 to Add a Contact\n 3 to View Contact List\n 4 to Delete a Contact");
                 ch = Integer.parseInt(sc.nextLine());
 
@@ -133,7 +133,6 @@ public class MgmtSys {
                         System.out.println("Invalid Choice");
                 }
 
-            } catch (Exception e) {  System.out.println("Invalid Choice");   }
         }
         System.out.println("|---------------Program Terminated---------------|");
     }
